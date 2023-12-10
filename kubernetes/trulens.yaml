@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: trulens-deployment
+  labels:
+    app: trulens
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: trulens
+  template:
+    metadata:
+      labels:
+        app: trulens
+    spec:
+      containers:
+      - name: trulens
+        image: raravena80/trulensrag:0.1
+        ports:
+        - containerPort: 8501
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: trulens
+  name: trulens-deployment
+  namespace: default
+spec:
+  ports:
+  - port: 8501
+    targetPort: 8501
+  selector:
+    app: trulens
+  type: NodePort
