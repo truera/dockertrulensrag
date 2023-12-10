@@ -20,4 +20,6 @@ ADD config.toml /root/.streamlit/config.toml
 # Main script
 COPY run.py .
 
+EXPOSE 8501
+
 ENTRYPOINT ["/opt/conda/envs/trulens/bin/python", "run.py"]
